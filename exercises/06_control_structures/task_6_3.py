@@ -74,11 +74,14 @@ trunk = {
     "0/7": ["only", "30"],
 }
 
-# for intf, vlan in access.items():
-#     print("interface FastEthernet" + intf)
-#     for command in access_template:
-#         if command.endswith("access vlan"):
-#             print(f" {command} {vlan}")
-#         else:
-#             print(f" {command}")
+intf = input("Interface 0/12: ")
+vlan = input("VLAN: ")
+
+for intf, vlan in access.items():
+    print("interface FastEthernet" + intf)
+    for command in access_template:
+        if command.endswith("access vlan"):
+            print(f" {command} {vlan}")
+        else:
+            print(f" {command}")
 
