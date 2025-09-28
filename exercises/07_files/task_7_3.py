@@ -1,3 +1,4 @@
+#!/usr/bin/venv python3
 # -*- coding: utf-8 -*-
 """
 Задание 7.3
@@ -20,3 +21,14 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+template = '''
+{:<9} {:<20} {}'''
+
+with open('CAM_table.txt', 'r') as f:
+    for line in f:
+        if '.' in line:
+            line_list = line.split()
+            print(template.format(line_list[0], line_list[1], line_list[3]), end='')
+
+print()
