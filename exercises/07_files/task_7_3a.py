@@ -40,3 +40,22 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+template = '''
+{:<9} {:<20} {}'''
+
+list_sort = []
+
+with open('CAM_table.txt', 'r') as f:
+    for line in f:
+        if '.' in line:
+            line_list = line.split()
+            line_list[0] = int(line_list[0])
+            list_sort.append(line_list)
+
+sort = sorted(list_sort)
+
+for i in sort:
+    print(template.format(i[0], i[1], i[3]), end='')
+
+print()
