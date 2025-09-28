@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+#!/usr/bin/venv python3
+
+from sys import argv
+
+file1, file2 = argv[1], argv[2]
+
 """
 Задание 7.2b
 
@@ -17,3 +23,9 @@
 """
 
 ignore = ["duplex", "alias", "configuration"]
+
+
+with open(file1, 'r') as f1, open(file2, 'w') as f2:
+    for line in f1:
+        if not ('!' in line) and not (ignore[0] in line) and not (ignore[1] in line) and not (ignore[2] in line):
+            f2.write(line)
