@@ -34,3 +34,58 @@
  '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']
 
 """
+ip_list = ['8.8.4.4', 
+           '1.1.1.1-3', 
+           '172.21.41.128-130', 
+           '172.21.41.128-172.21.41.132', 
+           '2.2.2.1-2.2.3.4',
+           '4.10.10.10-13']
+
+
+def convert_ranges_to_ip_list(ip_list):
+    """
+    Конвертирует список IP-адресов в разных форматах в список отдельных IP-адресов.
+    
+    Args:
+        ip_list (list): Список IP-адресов и диапазонов
+        
+    Returns:
+        result: Список отдельных IP-адресов
+    """
+    result = []
+
+    for i in ip_list:
+        # Разделяем на начало и конец диапазона
+        ip = i.split('-')
+
+        
+        if '-' in i:
+            # Если конец диапазона указан как полный IP-адрес
+            if len(ip[1].split('.')) > 1:
+                start_parts = ip[0].split('.')
+                end_parts = ip[1].split('.')
+            
+                # Для упрощения считаем, что меняется только последний октет
+                if start_parts[:-1] == end_parts[:-1]:
+                    start_last_octet = int(start_parts[-1])
+                    end_last_octet = int(end_parts[-1])
+                
+                    # Генерируем все адреса в диапазоне
+                    for last_octet in range(start_last_octet, end_last_octet + 1):
+                        ip_adr = f"{'.'.join(start_parts[:-1])}.{last_octet}"
+                        result.append(ip_adr)
+               
+            else:
+                # Если конец диапазона указан как число (только последний октет)
+                for r in range(int(ip[0].split('.')[3]), int(ip[1]) + 1):
+                    temp_ip = ip[0].split('.')
+                    temp_ip.remove(ip[0].split('.')[3])
+                    temp_ip.append(r)
+                    result.append('.'.join(str(l) for l in temp_ip))
+        else:
+            # Если это одиночный IP-адрес (нет дефиса)
+            result.append(i)
+
+    return result
+
+print(convert_ranges_to_ip_list(ip_list))
