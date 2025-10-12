@@ -44,3 +44,26 @@ topology_example = {
     ("SW1", "Eth0/2"): ("R2", "Eth0/0"),
     ("SW1", "Eth0/3"): ("R3", "Eth0/0"),
 }
+
+class Topology:
+    '''
+    Класс топологии сети
+    '''
+
+    def __init__(self, topology_dict):
+        self.topology = {}
+        seen_links = set()
+
+        for key, value in topology_dict.items():
+            link = tuple(sorted([key, value]))
+            if link not in seen_links:
+                self.topology[key] = value
+                seen_links.add(link)
+
+
+
+
+
+topology_net = Topology(topology_example)
+
+print(topology_net.topology)
